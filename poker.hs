@@ -27,8 +27,9 @@ standardDeck = (,) <$> [2..14] <*> [Spade, Diamond, Club, Heart]
 
 
 --------------------------------------------------------------------------
---Main Function - takes a list of hands and returns the highest ranked hand
---poker :: [Hand] -> HandRank
+--Main Function - takes a list of hands and returns the highest ranked hands
+--if a tie, both hands are returned
+poker :: [Hand] -> [Hand]
 poker hands = filter (== arrangeHand bestHand) arrangedHands -- maximum handRanks
         where
 	 HandRank bestRank bestHand  = maximum $ map handRank hands
