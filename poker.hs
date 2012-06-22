@@ -28,10 +28,11 @@ standardDeck = (,) <$> [2..14] <*> [Spade, Diamond, Club, Heart]
 
 --------------------------------------------------------------------------
 --Main Function - takes a list of hands and returns the highest ranked hand
-poker :: [Hand] -> HandRank
-poker hands = maximum handRanks
+--poker :: [Hand] -> HandRank
+poker hands = filter (== arrangeHand bestHand) arrangedHands -- maximum handRanks
         where
-	 handRanks = map handRank hands
+	 HandRank bestRank bestHand  = maximum $ map handRank hands
+	 arrangedHands = map arrangeHand hands
 
 
 -------------------------------------------------------------------------
@@ -85,7 +86,7 @@ cardRanks hand  | ranks hand == [14,5,4,3,2] = [5,4,3,2,1]
 --Arrange the hand so that hands of equal type can be compared ie a full house
 --would have the three of a kind first and then the pair, high card hand would
 --sort the hand from highest card to lowest
-arrangeHand hand = reverse . sort $ map(\x-> (length x, x)) $ group . cardRanks $ hand
+arrangeHand hand = concat $ map (\(r,h)-> h) $  reverse . sort $ map(\x-> (length x, x)) $ group . cardRanks $ hand
 
 
 
