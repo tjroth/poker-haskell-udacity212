@@ -86,8 +86,8 @@ cardRanks hand  | ranks hand == [14,5,4,3,2] = [5,4,3,2,1]
 --Arrange the hand so that hands of equal type can be compared ie a full house
 --would have the three of a kind first and then the pair, high card hand would
 --sort the hand from highest card to lowest
-arrangeHand :: Hand -> [CardRank]
-arrangeHand hand = concat $ map (\(r,h)-> h) $  reverse . sort $ map(\x-> (length x, x)) $ group . cardRanks $ hand
+arrangeHand :: Hand -> Hand
+arrangeHand hand = concat $ map (\(r,h)-> h) $  reverse . sort $ map(\x-> (length x, x)) $ group hand
 
 
 
