@@ -58,7 +58,6 @@ isStraightFlush hand = isStraight hand && isFlush hand
 isStraight :: Hand -> Bool
 isStraight hand = (maximum $ cardRanks hand) - (minimum $ cardRanks hand) == 4
 
-
 isFlush :: Hand -> Bool
 isFlush hand = (length . group $ map snd hand) == 1 
 
@@ -73,9 +72,13 @@ isTwoPair hand = (length $ filter (\x-> length x == 2) $ group . cardRanks $ han
 
 
 -------------------------------------------------------------------------------
---Return list of card ranks for the hand.  Each rank is the "value" of the card
+--Return list of card ranks for the hand.  Each rank is the number vallue  of
+--the card, ie 1..
 cardRanks :: Hand -> [Integer]
-cardRanks = reverse . sort . map fst
+cardRanks hand  | ranks hand == [14,5,4,3,2] = [5,4,3,2,1]
+	  	| otherwise = ranks hand
+	where
+	 ranks = reverse . sort . map fst
 
 
 -------------------------------------------------------------------------------------
@@ -98,6 +101,9 @@ hk2 = [(11,Spade), (8,Diamond), (2, Heart), (4,Spade), (5,Spade)]
 tp = [(10,Spade), (10,Diamond), (1, Heart), (1,Spade), (5,Spade)]
 fh2 = [(1,Spade), (10,Diamond), (1, Heart), (10,Spade), (10,Spade)]
 tp2 = [(3,Spade), (10,Diamond), (3, Heart), (5,Spade), (10,Spade)]
+st1 = [(3,Spade), (14,Diamond), (4, Heart), (5,Spade), (2,Spade)]
+st2 = [(14,Spade), (10,Diamond), (11, Heart), (12,Spade), (13,Spade)]
+
 
 
 
